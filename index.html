@@ -752,10 +752,28 @@ function updatePlayer(){
   }
 
   const jumpPow=hasUpgrade('bouncy')?P_JUMP*1.1:P_JUMP;
-  if(J&&!jumpPr&&player.onGround&&!player.crouch){
-    player.vy=player.power===POWER.STAR?-13.5:jumpPow;
-    player.onGround=false;jumpPr=true;sfxJump();
+if(J&&!jumpPr&&player.onGround&&!player.crouch){
+  player.vy=player.power===POWER.STAR?-13.5:jumpPow;
+  player.onGround=false;
+  jumpPr=true;
+  sfxJump();
+
+  // 😂 FUNNY TEXT
+  const funny = ["BOING!", "YEEET!", "WOOO!", "NOOO!", "AGAIN!"];
+  addFloat(player.x, player.y, funny[Math.floor(Math.random()*funny.length)]);
+
+  // 😈 BIG HEAD MODE (ADD HERE)
+  if (Math.random() < 0.2) {
+    player.w *= 1.5;
+    player.h *= 1.5;
+
+    setTimeout(() => {
+      player.w /= 1.5;
+      player.h /= 1.5;
+    }, 2000);
   }
+}
+
   if(!J)jumpPr=false;
 
   if(F&&!firePr){
